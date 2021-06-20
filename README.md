@@ -61,4 +61,5 @@ $ make rm
 
 # TODO
 - [ ] 将静态资源文件打包，构建可执行文件
-- [ ] 时区问题以及查看生成的 PDF 文件时间是否有更新
+- [ ] Dockefile 时区
+- [ ] 部署 Github Page
