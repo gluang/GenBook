@@ -63,14 +63,26 @@ Usage:
   help           打印命令帮助信息
 ```
 
-# 5. 准备工作
+# 5. Docker的部署和删除
+* 构建容器：
 
-```bash
-# 创建镜像
-$ make image
-# 创建容器
-$ make container
-```
+    ```bash
+    # 创建镜像
+    $ make image
+    # 创建容器
+    $ make container
+    ```
+
+* 删除容器：
+
+    ```bash
+    # 删除镜像
+    $ make rm-image
+    # 删除容器
+    $ make rm-container
+    # 删除镜像和容器
+    $ make rm
+    ```
 
 # 6. 可选服务
 ## 6.1. PDF 
@@ -92,6 +104,7 @@ $ make serve
 
 浏览器访问 `http://localhost:4000`
 
+![](images/web.png)
 
 ## 6.3. Github Page
 生成 web 静态资源文件：
@@ -121,7 +134,7 @@ $ make exec os=windows
     $ ./assets/exec-v0.0.1-linux-x86_64 -v
     ```
 
-* 启动本地 web 服务，程序默认监听 8800 端口：
+* 启动本地 web 服务，程序默认监听 12300 端口：
 
     ```bash
     $ ./assets/exec-v0.0.1-linux-x86_64

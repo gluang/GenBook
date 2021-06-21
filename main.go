@@ -29,7 +29,7 @@ func main() {
 		return
 	}
 
-	var port string = "8800"
+	var port string = "12300"
 	if len(args) == 3 && (args[1] == "--port" || args[1] == "-p") {
 		port = args[2]
 	}
