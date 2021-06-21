@@ -1,3 +1,11 @@
+VERSION := $(shell git describe --tags $(shell git rev-list --tags --max-count=1))
+BUILD_FLAGS = -ldflags "-X main.version=$(VERSION) \
+	-X main.commit=$(shell git rev-parse --short HEAD) \
+	-X main.date=$(shell date +'%F')"
+# OS = "linux"
+
+default: help
+
 ## image: 构建镜像
 .PHONY: image
 image:
@@ -22,7 +30,7 @@ container:
 html:
 	@mkdir -p docs
 	@docker exec -it gitbook-example gitbook build . /srv/html
-	@echo " ✔️\033[3m\033[96m generate html successfully \033[0m"
+	@echo " ✔️\033[3m\033[92m generate html successfully \033[0m"
 
 ## pdf: 生成 PDF
 .PHONY: pdf
@@ -34,10 +42,10 @@ ifneq ($(strip $(img)),) # 如果提供的 img 参数不为空，则执行转换
 endif
 ifneq ($(strip $(name)),)
 	@docker exec -it gitbook-example /usr/local/bin/gitbook pdf . assets/$(name).pdf
-	@echo " ✔️\033[3m\033[96m generate assets/$(name).pdf successfully \033[0m"
+	@echo " ✔️\033[3m\033[92m generate assets/$(name).pdf successfully \033[0m"
 else
 	@docker exec -it gitbook-example /usr/local/bin/gitbook pdf . assets/book.pdf
-	@echo " ✔️\033[3m\033[96m generate assets/book.pdf successfully \033[0m"
+	@echo " ✔️\033[3m\033[92m generate assets/book.pdf successfully \033[0m"
 endif
 
 ## serve: 启动本地 web 服务，监听 4000 端口
@@ -46,25 +54,40 @@ serve:
 	@docker exec -it gitbook-example /usr/local/bin/gitbook serve \
 		|| echo "\n ✔️\033[3m\033[92m close service successfully \033[0m"
 
+## exec: 生成可执行文件（需要使用 Golang 编译）
+.PHONY: exec
+exec: html
+ifneq ($(strip $(os)),)  # windows 平台
+	@CGO_ENABLED=0 GOOS=$(os) GOARCH=amd64 go build $(BUILD_FLAGS) -o assets/exec-$(VERSION)-windows-x86_64.exe main.go \
+		&& echo " ✔️\033[3m\033[92m generate assets/exec-$(VERSION)-windows-x86_64.exe successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m generate assets/exec-$(VERSION)-windows-x86_64.exe failed \033[0m"
+else	# 默认 linux 平台
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(BUILD_FLAGS) -o assets/exec-$(VERSION)-linux-x86_64 main.go \
+		&& echo " ✔️\033[3m\033[92m generate assets/exec-$(VERSION)-linux-x86_64 successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m generate assets/exec-$(VERSION)-linux-x86_64 failed \033[0m"
+endif
+
 ## clean: 删除命令 html pdf serve 生成的中间物
 .PHONY: clean
 clean:
 	@rm -rf _book assets/* docs/* \
 		&& echo " ✔️\033[3m\033[92m clean successfully \033[0m" \
-		|| echo " ❌\033[3m\033[91m clean failed \033[0m" \
+		|| echo " ❌\033[3m\033[91m clean failed \033[0m"
 
 ## rm-container: 删除容器
 .PHONY: rm-container
 rm-container:
-	@docker stop gitbook-example
-	@docker rm -f gitbook-example
-	@echo " 🐋\033[3m\033[96m remove container successfully \033[0m"
+	@docker stop gitbook-example \
+		&& docker rm gitbook-example \
+		&& echo " 🐋\033[3m\033[92m remove container successfully \033[0m" \
+		|| echo " 🐋\033[3m\033[91m remove container failed \033[0m"
 
 ## rm-image: 删除镜像
 .PHONY: rm-image
 rm-image:
-	@docker rmi -f gluang/gitbook
-	@echo " 🐋\033[3m\033[96m remove image successfully \033[0m"
+	@docker rmi gluang/gitbook \
+		&& echo " 🐋\033[3m\033[92m remove image successfully \033[0m" \
+		|| echo " 🐋\033[3m\033[91m remove image failed \033[0m"
 
 ## rm: 删除容器和镜像
 .PHONY: rm

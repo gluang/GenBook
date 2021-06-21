@@ -20,4 +20,4 @@ COPY font/* /usr/share/fonts/
 
 EXPOSE 4000
 
-CMD /usr/local/bin/gitbook serve
+CMD [ "bash" ]

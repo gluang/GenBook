@@ -128,12 +128,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="03-生成电子书.html">
+        <li class="chapter " data-level="1.4" data-path="03-Docker的部署和删除.html">
             
-                <a href="03-生成电子书.html">
+                <a href="03-Docker的部署和删除.html">
             
                     
-                    3-生成电子书
+                    3-Docker的部署和删除
             
                 </a>
             
@@ -141,12 +141,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="04-构建本地web服务.html">
+        <li class="chapter " data-level="1.5" data-path="04-生成PDF.html">
             
-                <a href="04-构建本地web服务.html">
+                <a href="04-生成PDF.html">
             
                     
-                    4-构建本地web服务
+                    4-生成PDF
             
                 </a>
             
@@ -154,12 +154,51 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="05-封面图.html">
+        <li class="chapter " data-level="1.6" data-path="05-构建本地web服务.html">
             
-                <a href="05-封面图.html">
+                <a href="05-构建本地web服务.html">
             
                     
-                    5-封面图
+                    5-构建本地web服务
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="06-GithubPage.html">
+            
+                <a href="06-GithubPage.html">
+            
+                    
+                    6-Github Page
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="07-生成可执行二进制文件.html">
+            
+                <a href="07-生成可执行二进制文件.html">
+            
+                    
+                    7-生成可执行二进制文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" data-path="封面图.html">
+            
+                <a href="封面图.html">
+            
+                    
+                    封面图
             
                 </a>
             
@@ -227,7 +266,13 @@
 &#x251C;&#x2500;&#x2500; README.md   // &#x9879;&#x76EE;&#x7B80;&#x4ECB;
 &#x251C;&#x2500;&#x2500; SUMMARY.md  // &#x9879;&#x76EE;&#x76EE;&#x5F55;
 &#x251C;&#x2500;&#x2500; book.json   // pdf &#x914D;&#x7F6E;&#x6587;&#x4EF6;
-&#x2514;&#x2500;&#x2500; cover.jpg   // pdf &#x5C01;&#x9762;&#x56FE;</code></pre>
+&#x251C;&#x2500;&#x2500; cover.jpg   // pdf &#x5C01;&#x9762;&#x56FE;
+&#x251C;&#x2500;&#x2500; docs.go
+&#x251C;&#x2500;&#x2500; go.mod
+&#x251C;&#x2500;&#x2500; go.sum
+&#x2514;&#x2500;&#x2500; main.go
+
+6 directories, 13 files</code></pre>
 
                                 
                                 </section>
@@ -271,7 +316,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"1-项目结构","level":"1.2","depth":1,"next":{"title":"2-查看帮助","level":"1.3","depth":1,"path":"content/02-查看帮助.md","ref":"content/02-查看帮助.md","articles":[]},"previous":{"title":"简介","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"gluang","pdf":{"pageNumbers":true,"fontSize":15,"fontFamily":"KaiTi, Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GenBook","language":"zh-hans","gitbook":"3.2.1","description":"使用 Docker 搭建 Gitbook，用于生成电子书，静态网站等"},"file":{"path":"content/01-项目结构.md","mtime":"2021-06-20T19:14:41.530Z","type":"markdown"},"gitbook":{"version":"3.2.1","time":"2021-06-20T20:21:13.079Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"1-项目结构","level":"1.2","depth":1,"next":{"title":"2-查看帮助","level":"1.3","depth":1,"path":"content/02-查看帮助.md","ref":"content/02-查看帮助.md","articles":[]},"previous":{"title":"简介","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"gluang","pdf":{"pageNumbers":true,"fontSize":15,"fontFamily":"KaiTi, Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GenBook","language":"zh-hans","gitbook":"3.2.1","description":"使用 Docker 搭建 Gitbook，用于生成电子书，静态网站等"},"file":{"path":"content/01-项目结构.md","mtime":"2021-06-20T23:39:38.560Z","type":"markdown"},"gitbook":{"version":"3.2.1","time":"2021-06-21T00:44:23.771Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

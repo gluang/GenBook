@@ -1,6 +1,11 @@
 font
 assets
+.vscode
 .bookignore
 .gitignore
 Dockerfile
 Makefile
+
+go.mod
+go.sum
+main.go
