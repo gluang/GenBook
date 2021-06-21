@@ -277,8 +277,6 @@
 <h1 id="2-&#x9700;&#x8981;&#x5DE5;&#x5177;">2. &#x9700;&#x8981;&#x5DE5;&#x5177;</h1><ul><li>Docker
 </li>
 <li>make
-</li>
-<li>Golang (version &gt;= 1.6)&#xFF08;&#x6784;&#x5EFA;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#x624D;&#x9700;&#x8981;&#xFF09;
 </li></ul>
 <h1 id="3-&#x9879;&#x76EE;&#x7ED3;&#x6784;">3. &#x9879;&#x76EE;&#x7ED3;&#x6784;</h1><pre><code>.
 &#x251C;&#x2500;&#x2500; .git
@@ -310,6 +308,9 @@ Usage:
   pdf            &#x751F;&#x6210; PDF
   serve          &#x542F;&#x52A8;&#x672C;&#x5730; web &#x670D;&#x52A1;&#xFF0C;&#x76D1;&#x542C; 4000 &#x7AEF;&#x53E3;
   exec           &#x751F;&#x6210;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;&#xFF08;&#x9700;&#x8981;&#x4F7F;&#x7528; Golang &#x7F16;&#x8BD1;&#xFF09;
+  pre-go         &#x6784;&#x5EFA; Golang &#x7F16;&#x8BD1;&#x5BB9;&#x5668;
+  go             &#x4F7F;&#x7528;&#x5BB9;&#x5668;&#x7F16;&#x8BD1;&#x751F;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;
+  end-go         &#x5220;&#x9664;&#x7F16;&#x8BD1;&#x5BB9;&#x5668;
   clean          &#x5220;&#x9664;&#x547D;&#x4EE4; html pdf serve &#x751F;&#x6210;&#x7684;&#x4E2D;&#x95F4;&#x7269;
   rm-container   &#x5220;&#x9664;&#x5BB9;&#x5668;
   rm-image       &#x5220;&#x9664;&#x955C;&#x50CF;
@@ -335,11 +336,23 @@ $ make pdf img=images/cover.jpg
 $ make pdf name=mybook</code></pre>
 <h2 id="62-&#x672C;&#x5730;-web-&#x670D;&#x52A1;">6.2. &#x672C;&#x5730; Web &#x670D;&#x52A1;</h2><pre><code>$ make serve</code></pre>
 <p>&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE; <code>http://localhost:4000</code></p><p><img src="images/web.png"></p><h2 id="63-github-page">6.3. Github Page</h2><p>&#x751F;&#x6210; web &#x9759;&#x6001;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#xFF1A;</p><pre><code class="lang-bash">$ make html</code></pre>
-<p>&#x5728; Github Page &#x8BBE;&#x7F6E;&#x65F6;&#x6307;&#x5B9A; <code>main</code> &#x5206;&#x652F;&#x4E0B;&#x7684; <code>docs</code> &#x8DEF;&#x5F84;&#x5373;&#x53EF;&#x3002;&#x6BCF;&#x6B21; push &#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x3002;</p><h2 id="64-&#x4E8C;&#x8FDB;&#x5236;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;">6.4. &#x4E8C;&#x8FDB;&#x5236;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;</h2><p><strong>&#x524D;&#x63D0;</strong>&#xFF1A;&#x9700;&#x8981; Golang &#x73AF;&#x5883;&#x63D0;&#x4F9B;&#x7F16;&#x8BD1;&#xFF0C;&#x4E14;&#x7248;&#x672C;&#x8981;&#x6C42;&#xFF1A;<strong><code>&gt;= 1.16</code></strong>&#x3002;</p><p>&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x4E3A; linux &#x5E73;&#x53F0;&#x4E0B;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x9700; windows &#x5E73;&#x53F0;&#x8BF7;&#x4F7F;&#x7528; <code>os=windows</code> &#x8FDB;&#x884C;&#x6307;&#x5B9A;&#x3002;</p><pre><code class="lang-bash"><span class="hljs-comment"># linux &#x5E73;&#x53F0;</span>
+<p>&#x5728; Github Page &#x8BBE;&#x7F6E;&#x65F6;&#x6307;&#x5B9A; <code>main</code> &#x5206;&#x652F;&#x4E0B;&#x7684; <code>docs</code> &#x8DEF;&#x5F84;&#x5373;&#x53EF;&#x3002;&#x6BCF;&#x6B21; push &#x540E;&#x4F1A;&#x81EA;&#x52A8;&#x66F4;&#x65B0;&#x3002;</p><h2 id="64-&#x4E8C;&#x8FDB;&#x5236;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;">6.4. &#x4E8C;&#x8FDB;&#x5236;&#x53EF;&#x6267;&#x884C;&#x6587;&#x4EF6;</h2><h3 id="&#x672C;&#x5730;&#x7F16;&#x8BD1;">&#x672C;&#x5730;&#x7F16;&#x8BD1;</h3><p><strong>&#x524D;&#x63D0;</strong>&#xFF1A;&#x9700;&#x8981; Golang &#x73AF;&#x5883;&#x63D0;&#x4F9B;&#x7F16;&#x8BD1;&#xFF0C;&#x4E14;&#x7248;&#x672C;&#x8981;&#x6C42;&#xFF1A;<strong><code>&gt;= 1.16</code></strong>&#x3002;</p><p>&#x9ED8;&#x8BA4;&#x7F16;&#x8BD1;&#x4E3A; linux &#x5E73;&#x53F0;&#x4E0B;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#xFF0C;&#x5982;&#x9700; windows &#x5E73;&#x53F0;&#x8BF7;&#x4F7F;&#x7528; <code>os=windows</code> &#x8FDB;&#x884C;&#x6307;&#x5B9A;&#x3002;</p><pre><code class="lang-bash"><span class="hljs-comment"># linux &#x5E73;&#x53F0;</span>
 $ make <span class="hljs-built_in">exec</span>
 <span class="hljs-comment"># windows &#x5E73;&#x53F0;</span>
 $ make <span class="hljs-built_in">exec</span> os=windows</code></pre>
-<p>&#x4F8B;&#x5982;&#xFF1A;&#x5728; linux &#x5E73;&#x53F0;&#x4E0B;</p><ul><li><p>&#x67E5;&#x770B;&#x7248;&#x672C;&#x7B49;&#x4FE1;&#x606F;</p><pre><code class="lang-bash">  $ ./assets/<span class="hljs-built_in">exec</span>-v0.0.1-linux-x86_64 -v</code></pre>
+<h3 id="docker&#x7F16;&#x8BD1;">Docker&#x7F16;&#x8BD1;</h3><ul><li>&#x6784;&#x5EFA;&#x7F16;&#x8BD1;&#x5BB9;&#x5668;&#xFF1A;
+</li></ul>
+<pre><code>$ make pre-go</code></pre>
+<ul><li>&#x7F16;&#x8BD1;&#x751F;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#xFF1A;
+</li></ul>
+<pre><code class="lang-bash"><span class="hljs-comment"># linux &#x5E73;&#x53F0;</span>
+$ make go
+<span class="hljs-comment"># windows &#x5E73;&#x53F0;</span>
+$ make go os=windows</code></pre>
+<ul><li>&#x5220;&#x9664;&#x5BB9;&#x5668;&#xFF1A;
+</li></ul>
+<pre><code>$ make end-go</code></pre>
+<h3 id="&#x7A0B;&#x5E8F;&#x4F7F;&#x7528;">&#x7A0B;&#x5E8F;&#x4F7F;&#x7528;</h3><p>&#x4F8B;&#x5982;&#xFF1A;&#x5728; linux &#x5E73;&#x53F0;&#x4E0B;</p><ul><li><p>&#x67E5;&#x770B;&#x7248;&#x672C;&#x7B49;&#x4FE1;&#x606F;</p><pre><code class="lang-bash">  $ ./assets/<span class="hljs-built_in">exec</span>-v0.0.1-linux-x86_64 -v</code></pre>
 <ul><li>&#x542F;&#x52A8;&#x672C;&#x5730; web &#x670D;&#x52A1;&#xFF0C;&#x7A0B;&#x5E8F;&#x9ED8;&#x8BA4;&#x76D1;&#x542C; 12300 &#x7AEF;&#x53E3;&#xFF1A;
 </li></ul>
 <pre><code class="lang-bash">  $ ./assets/<span class="hljs-built_in">exec</span>-v0.0.1-linux-x86_64</code></pre>
@@ -355,7 +368,7 @@ $ make <span class="hljs-built_in">exec</span> os=windows</code></pre>
 </li>
 <li>[ ] $latex$ &#x7684;&#x652F;&#x6301;
 </li>
-<li>[ ] &#x6DFB;&#x52A0; golang &#x7F16;&#x8BD1;&#x73AF;&#x5883;&#x955C;&#x50CF;
+<li>[x] &#x6DFB;&#x52A0; golang &#x7F16;&#x8BD1;&#x73AF;&#x5883;&#x955C;&#x50CF;
 </li></ul>
 
                                 
@@ -396,7 +409,7 @@ $ make <span class="hljs-built_in">exec</span> os=windows</code></pre>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"简介","level":"1.1","depth":1,"next":{"title":"1-项目结构","level":"1.2","depth":1,"path":"content/01-项目结构.md","ref":"content/01-项目结构.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"gluang","pdf":{"pageNumbers":true,"fontSize":15,"fontFamily":"KaiTi, Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GenBook","language":"zh-hans","gitbook":"3.2.1","description":"使用 Docker 搭建 Gitbook，用于生成电子书，静态网站等"},"file":{"path":"README.md","mtime":"2021-06-21T16:53:29.760Z","type":"markdown"},"gitbook":{"version":"3.2.1","time":"2021-06-21T18:15:28.337Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"简介","level":"1.1","depth":1,"next":{"title":"1-项目结构","level":"1.2","depth":1,"path":"content/01-项目结构.md","ref":"content/01-项目结构.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"gluang","pdf":{"pageNumbers":true,"fontSize":15,"fontFamily":"KaiTi, Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GenBook","language":"zh-hans","gitbook":"3.2.1","description":"使用 Docker 搭建 Gitbook，用于生成电子书，静态网站等"},"file":{"path":"README.md","mtime":"2021-06-21T18:53:23.840Z","type":"markdown"},"gitbook":{"version":"3.2.1","time":"2021-06-21T18:55:35.801Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

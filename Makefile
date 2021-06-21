@@ -10,8 +10,9 @@ default: help
 .PHONY: image
 image:
 	@echo " 🐋\033[3m\033[96m build image \033[0m"
-	@docker build -t gluang/gitbook .
-	@echo " 🎉\033[3m\033[96m build image successfully \033[0m"
+	@docker build -t gluang/gitbook . \
+		&& echo " 🎉\033[3m\033[96m build image successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m build image failed \033[0m"
 
 ## container: 构建容器
 .PHONY: container
@@ -22,15 +23,17 @@ container:
 		-v ${PWD}/docs:/srv/html \
 		-p 4000:4000 \
 		--name gitbook-example \
-		gluang/gitbook:latest bash
-	@echo " 🎉\033[3m\033[96m build container successfully \033[0m"
+		gluang/gitbook:latest bash \
+		&& echo " 🎉\033[3m\033[96m build container successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m build container failed \033[0m"
 
 ## html: 生成静态文件
 .PHONY: html
 html:
 	@mkdir -p docs
-	@docker exec -it gitbook-example gitbook build . /srv/html
-	@echo " ✔️\033[3m\033[92m generate html successfully \033[0m"
+	@docker exec -it gitbook-example gitbook build . /srv/html \
+		&& echo " ✔️\033[3m\033[92m generate html successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m generate html failed \033[0m" \
 
 ## pdf: 生成 PDF
 .PHONY: pdf
@@ -38,14 +41,17 @@ pdf:
 	@mkdir -p assets
 ifneq ($(strip $(img)),) # 如果提供的 img 参数不为空，则执行转换
 	@echo " 🔥\033[96m 将 ${img} 尺寸修改为 1800x2360 \033[0m"
-	@docker exec -it gitbook-example convert -resize 1800x2360! $(img) cover.jpg
+	@docker exec -it gitbook-example convert -resize 1800x2360! $(img) cover.jpg \
+		|| echo " ❌\033[3m\033[91m convert $(img) failed \033[0m"
 endif
 ifneq ($(strip $(name)),)
-	@docker exec -it gitbook-example /usr/local/bin/gitbook pdf . assets/$(name).pdf
-	@echo " ✔️\033[3m\033[92m generate assets/$(name).pdf successfully \033[0m"
+	@docker exec -it gitbook-example /usr/local/bin/gitbook pdf . assets/$(name).pdf \
+		&& echo " ✔️\033[3m\033[92m generate assets/$(name).pdf successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m generate assets/$(name).pdf failed \033[0m"
 else
-	@docker exec -it gitbook-example /usr/local/bin/gitbook pdf . assets/book.pdf
-	@echo " ✔️\033[3m\033[92m generate assets/book.pdf successfully \033[0m"
+	@docker exec -it gitbook-example /usr/local/bin/gitbook pdf . assets/book.pdf \
+		&& echo " ✔️\033[3m\033[92m generate assets/book.pdf successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m generate assets/book.pdf failed \033[0m"
 endif
 
 ## serve: 启动本地 web 服务，监听 4000 端口
@@ -116,15 +122,15 @@ clean:
 rm-container:
 	@docker stop gitbook-example \
 		&& docker rm gitbook-example \
-		&& echo " 🐋\033[3m\033[92m remove container successfully \033[0m" \
-		|| echo " 🐋\033[3m\033[91m remove container failed \033[0m"
+		&& echo " ✔️\033[3m\033[92m remove container successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m remove container failed \033[0m"
 
 ## rm-image: 删除镜像
 .PHONY: rm-image
 rm-image:
 	@docker rmi gluang/gitbook \
-		&& echo " 🐋\033[3m\033[92m remove image successfully \033[0m" \
-		|| echo " 🐋\033[3m\033[91m remove image failed \033[0m"
+		&& echo " ✔️\033[3m\033[92m remove image successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m remove image failed \033[0m"
 
 ## rm: 删除容器和镜像
 .PHONY: rm
