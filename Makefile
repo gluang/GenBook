@@ -1,7 +1,7 @@
 VERSION := $(shell git describe --tags $(shell git rev-list --tags --max-count=1))
-BUILD_FLAGS = -ldflags "-X main.version=$(VERSION) \
+BUILD_FLAGS = -ldflags '"-X main.version=$(VERSION) \
 	-X main.commit=$(shell git rev-parse --short HEAD) \
-	-X main.date=$(shell date +'%F')"
+	-X main.date=$(shell date +'%F')"'
 # OS = "linux"
 
 default: help
@@ -66,6 +66,43 @@ else	# 默认 linux 平台
 		&& echo " ✔️\033[3m\033[92m generate assets/exec-$(VERSION)-linux-x86_64 successfully \033[0m" \
 		|| echo " ❌\033[3m\033[91m generate assets/exec-$(VERSION)-linux-x86_64 failed \033[0m"
 endif
+
+
+## pre-go: 构建 Golang 编译容器
+.PHONY: pre-go
+pre-go: 
+	@docker build -f assets/Dockerfile -t okitote/golang-build . \
+		&& docker run -itd --name golang-build-1 \
+			-v ${PWD}/assets:/app/assets \
+			-v ${PWD}/docs:/app/docs \
+			okitote/golang-build /bin/sh \
+		|| echo " ❌\033[3m\033[91m golang 容器构建失败 \033[0m"
+
+## go: 使用容器编译生成二进制文件
+.PHONY: go
+go: html
+ifneq ($(strip $(os)),)  # windows 平台
+	@echo "CGO_ENABLED=0 GOOS=$(os) GOARCH=amd64 go build $(BUILD_FLAGS) -o assets/exec-$(VERSION)-windows-x86_64.exe main.go" > docs/build.sh \
+		&& docker exec -it golang-build-1 go mod download \
+		&& docker exec -it golang-build-1 /bin/sh docs/build.sh \
+		&& echo " ✔️\033[3m\033[92m generate assets/exec-$(VERSION)-windows-x86_64.exe successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m generate assets/exec-$(VERSION)-windows-x86_64.exe failed \033[0m"
+else	# 默认 linux 平台
+	@echo "CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build $(BUILD_FLAGS) -o assets/exec-$(VERSION)-linux-x86_64 main.go" > docs/build.sh \
+		&& docker exec -it golang-build-1 go mod download \
+		&& docker exec -it golang-build-1 /bin/sh docs/build.sh \
+		&& echo " ✔️\033[3m\033[92m generate assets/exec-$(VERSION)-linux-x86_64 successfully \033[0m" \
+		|| echo " ❌\033[3m\033[91m generate assets/exec-$(VERSION)-linux-x86_64 failed \033[0m"
+endif
+
+## end-go: 删除编译容器
+.PHONY: end-go
+end-go: 
+	@docker stop golang-build-1 \
+		&& docker rm golang-build-1 \
+		&& docker rmi okitote/golang-build \
+		|| echo " ❌\033[3m\033[91m golang 容器删除失败 \033[0m"
+
 
 ## clean: 删除命令 html pdf serve 生成的中间物
 .PHONY: clean

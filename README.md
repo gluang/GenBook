@@ -20,7 +20,6 @@
 # 2. 需要工具
 * Docker
 * make
-* Golang (version >= 1.6)（构建二进制文件才需要）
 
 
 # 3. 项目结构
@@ -61,6 +60,9 @@ Usage:
   pdf            生成 PDF
   serve          启动本地 web 服务，监听 4000 端口
   exec           生成可执行文件（需要使用 Golang 编译）
+  pre-go         构建 Golang 编译容器
+  go             使用容器编译生成二进制文件
+  end-go         删除编译容器
   clean          删除命令 html pdf serve 生成的中间物
   rm-container   删除容器
   rm-image       删除镜像
@@ -121,6 +123,7 @@ $ make html
 在 Github Page 设置时指定 `main` 分支下的 `docs` 路径即可。每次 push 后会自动更新。
 
 ## 6.4. 二进制可执行文件
+### 本地编译
 **前提**：需要 Golang 环境提供编译，且版本要求：**`>= 1.16`**。
 
 默认编译为 linux 平台下的二进制文件，如需 windows 平台请使用 `os=windows` 进行指定。
@@ -132,6 +135,29 @@ $ make exec
 $ make exec os=windows
 ```
 
+### Docker编译
+* 构建编译容器：
+
+```
+$ make pre-go
+```
+
+* 编译生成二进制文件：
+
+```bash
+# linux 平台
+$ make go
+# windows 平台
+$ make go os=windows
+```
+
+* 删除容器：
+
+```
+$ make end-go
+```
+
+### 程序使用
 例如：在 linux 平台下
 * 查看版本等信息
 
@@ -158,5 +184,5 @@ $ make exec os=windows
 - [x] Dockefile 时区
 - [x] 部署 Github Page
 - [ ] $latex$ 的支持
-- [ ] 添加 golang 编译环境镜像
+- [x] 添加 golang 编译环境镜像
 
