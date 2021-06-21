@@ -3,6 +3,7 @@ assets
 .vscode
 .bookignore
 .gitignore
+assets
 Dockerfile
 Makefile
 
