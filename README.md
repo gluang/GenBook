@@ -2,7 +2,12 @@
 
 <div align=center><h3>✨ 使用 Docker 搭建 Gitbook，用于生成电子书，静态网站，二进制可执行文件等。</h3></div>
 
-<div align=center><img src="https://img.shields.io/badge/license-MIT-blue"/> <img src="https://img.shields.io/badge/docker%20build-passing-green"/></div>
+<div align=center>
+
+[![](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+![](https://img.shields.io/badge/docker%20build-passing-green)
+
+</div>
 
 在线预览：[gluang.github.io/GenBook](https://gluang.github.io/GenBook/)
 
