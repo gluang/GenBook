@@ -123,7 +123,7 @@ $ make html
 在 Github Page 设置时指定 `main` 分支下的 `docs` 路径即可。每次 push 后会自动更新。
 
 ## 6.4. 二进制可执行文件
-### 本地编译
+### 6.4.1. 本地编译
 **前提**：需要 Golang 环境提供编译，且版本要求：**`>= 1.16`**。
 
 默认编译为 linux 平台下的二进制文件，如需 windows 平台请使用 `os=windows` 进行指定。
@@ -135,7 +135,7 @@ $ make exec
 $ make exec os=windows
 ```
 
-### Docker编译
+### 6.4.2. Docker编译
 * 构建编译容器：
 
 ```
@@ -157,7 +157,7 @@ $ make go os=windows
 $ make end-go
 ```
 
-### 程序使用
+### 6.4.3. 程序使用
 例如：在 linux 平台下
 * 查看版本等信息
 
